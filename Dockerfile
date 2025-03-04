@@ -7,6 +7,7 @@ RUN apt-get update && \
     midori \
     xvfb \
     x11vnc \
+    tightvncserver \  # Contains vncpasswd
     fluxbox \
     net-tools \
     && rm -rf /var/lib/apt/lists/* \
@@ -18,7 +19,7 @@ RUN tar -xzf /tmp/v1.4.0.tar.gz -C /opt/ \
     && mv /opt/noVNC-1.4.0 /opt/noVNC \
     && rm /tmp/v1.4.0.tar.gz
 
-# Configure VNC
+# Configure VNC password
 RUN mkdir -p /root/.vnc && \
     echo "password" | vncpasswd -f > /root/.vnc/passwd && \
     chmod 600 /root/.vnc/passwd
