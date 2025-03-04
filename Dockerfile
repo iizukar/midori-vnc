@@ -7,13 +7,13 @@ RUN apt-get update && \
     midori \
     xvfb \
     x11vnc \
-    tightvncserver \  # Contains vncpasswd
+    tightvncserver \
     fluxbox \
     net-tools \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
-# Install noVNC directly (no git)
+# Install noVNC directly
 ADD https://github.com/novnc/noVNC/archive/refs/tags/v1.4.0.tar.gz /tmp/
 RUN tar -xzf /tmp/v1.4.0.tar.gz -C /opt/ \
     && mv /opt/noVNC-1.4.0 /opt/noVNC \
