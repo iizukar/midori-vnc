@@ -2,7 +2,7 @@ FROM debian:buster-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install core packages
+# Install essential utilities
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     midori \
@@ -14,10 +14,11 @@ RUN apt-get update && \
     openssl \
     python3 \
     python3-websockify \
+    procps \  # Provides ps command
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Download and install noVNC + websockify
+# Install noVNC + websockify
 ADD https://github.com/novnc/noVNC/archive/v1.4.0.tar.gz /tmp/
 ADD https://github.com/novnc/websockify/archive/v0.11.0.tar.gz /tmp/
 RUN tar -xzf /tmp/v1.4.0.tar.gz -C /opt && \
@@ -31,7 +32,7 @@ RUN openssl req -new -x509 -days 365 -nodes \
     -keyout /opt/noVNC-1.4.0/utils/self.pem \
     -subj "/C=US/ST=Earth/L=Global/O=Midori/CN=render"
 
-# Configure VNC
+# Configure VNC password
 RUN mkdir -p /root/.vnc && \
     echo "password" | vncpasswd -f > /root/.vnc/passwd && \
     chmod 600 /root/.vnc/passwd
