@@ -1,11 +1,12 @@
-FROM debian:buster-slim
+FROM debian:bookworm-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install essential packages
+# Install packages with updated CA certificates
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    midori \
+    ca-certificates \
+    epiphany-browser \  # Modern WebKit browser
     xvfb \
     x11vnc \
     tightvncserver \
@@ -16,7 +17,10 @@ RUN apt-get update && \
     python3-websockify \
     procps \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && update-ca-certificates
+
+# Rest of Dockerfile remains same...
 
 # Install noVNC + websockify
 ADD https://github.com/novnc/noVNC/archive/v1.4.0.tar.gz /tmp/
