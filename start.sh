@@ -4,12 +4,15 @@
 rm -f /tmp/.X1-lock
 rm -f /tmp/.X11-unix/X1
 
-# Start virtual display
+# Start X virtual framebuffer
 Xvfb :1 -screen 0 1024x768x16 +extension GLX +render -noreset &
 export DISPLAY=:1
 
 # Start window manager
 fluxbox &
+
+# Wait for fluxbox to initialize
+sleep 2
 
 # Start VNC server
 x11vnc -display :1 -rfbauth /root/.vnc/passwd -forever -shared -noxdamage -localhost -rfbport 5901 &
