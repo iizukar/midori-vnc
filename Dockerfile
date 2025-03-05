@@ -40,7 +40,10 @@ RUN mkdir -p /root/.vnc && \
 # Fluxbox configuration
 RUN mkdir -p /root/.fluxbox && \
     echo 'session.screen0.workspaces: 1' > /root/.fluxbox/init && \
-    echo 'midori --display=:1' > /root/.fluxbox/startup
+    echo 'background: none' >> /root/.fluxbox/init && \
+    echo 'xsetroot -solid "#333333"' > /root/.fluxbox/startup && \
+    echo 'midori --display=:1 &' >> /root/.fluxbox/startup && \
+    echo 'exec fluxbox' >> /root/.fluxbox/startup
 
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
