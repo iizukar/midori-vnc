@@ -2,7 +2,7 @@ FROM debian:buster-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install essential utilities
+# Install essential packages
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     midori \
@@ -14,7 +14,7 @@ RUN apt-get update && \
     openssl \
     python3 \
     python3-websockify \
-    procps \  # Provides ps command
+    procps \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
